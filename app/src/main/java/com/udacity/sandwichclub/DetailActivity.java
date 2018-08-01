@@ -5,9 +5,10 @@ import android.databinding.DataBindingUtil;
 import android.os.Bundle;
 import android.support.v7.app.AppCompatActivity;
 import android.util.Log;
-import android.widget.ImageView;
+import android.view.View;
 import android.widget.Toast;
 
+import com.squareup.picasso.Callback;
 import com.squareup.picasso.Picasso;
 import com.udacity.sandwichclub.databinding.ActivityDetailBinding;
 import com.udacity.sandwichclub.model.Sandwich;
@@ -19,8 +20,8 @@ public class DetailActivity extends AppCompatActivity {
 
     public static final String EXTRA_POSITION = "extra_position";
     private static final int DEFAULT_POSITION = -1;
-    private ActivityDetailBinding mActivityDetailBinding;
     private final String TAG = DetailActivity.class.getSimpleName();
+    private ActivityDetailBinding mActivityDetailBinding;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -28,8 +29,12 @@ public class DetailActivity extends AppCompatActivity {
         mActivityDetailBinding =
                 DataBindingUtil.setContentView(this, R.layout.activity_detail);
 
-        ImageView imageIv = findViewById(R.id.image_iv);
+        setUpDetailActivity();
 
+    }
+
+    private void setUpDetailActivity() {
+        showProgressBar();
         Intent intent = getIntent();
         if (intent == null) {
             closeOnError();
@@ -52,10 +57,7 @@ public class DetailActivity extends AppCompatActivity {
         }
 
         populateUI(sandwich);
-        Picasso.with(this)
-                .load(sandwich.getImage())
-                .into(imageIv);
-
+        loadImage(sandwich);
         setTitle(sandwich.getMainName());
         Log.e(TAG, "************************** " + sandwich.getMainName() + " ************ ");
     }
@@ -73,20 +75,46 @@ public class DetailActivity extends AppCompatActivity {
         mActivityDetailBinding.originTv.setText(sandwich.getPlaceOfOrigin());
     }
 
+    private void loadImage(Sandwich sandwich) {
+        Picasso.with(this)
+                .load(sandwich.getImage())
+                .error(R.drawable.image_url_broken)
+                .into(mActivityDetailBinding.imageIv, new Callback() {
+                    @Override
+                    public void onSuccess() {
+                        hideProgressBar();
+                    }
+
+                    @Override
+                    public void onError() {
+                        hideProgressBar();
+                    }
+                });
+    }
+
+    private void hideProgressBar() {
+        mActivityDetailBinding.imageLoadingProgressBar.setVisibility(View.INVISIBLE);
+    }
+
+    private void showProgressBar() {
+        mActivityDetailBinding.imageLoadingProgressBar.setVisibility(View.VISIBLE);
+    }
+
     /**
      * This methods takes in a list of string and pretty prints it
+     *
      * @param stringList the list of string to pretty print
      * @return
      */
-    private String prettyPrintList(List<String> stringList){
+    private String prettyPrintList(List<String> stringList) {
         StringBuilder stringBuilder = new StringBuilder();
-        if(stringList.isEmpty()) {
+        if (stringList.isEmpty()) {
             return " ------------ ";
         }
         int count = 0;
-        for(String text : stringList){
+        for (String text : stringList) {
             String txt = null;
-            if(count != stringList.size() - 1)
+            if (count != stringList.size() - 1)
                 txt = text + ", \n";
             else txt = text + ". \n";
             stringBuilder.append(txt);

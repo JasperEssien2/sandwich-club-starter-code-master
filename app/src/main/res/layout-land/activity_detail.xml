@@ -4,142 +4,115 @@
     xmlns:tools="http://schemas.android.com/tools">
 
     <!--<android.support.v4.widget.NestedScrollView-->
-        <!--android:background="@color/colorPrimaryDark"-->
-        <!--android:layout_width="match_parent"-->
-        <!--android:layout_height="match_parent">-->
+    <!--android:background="@color/colorPrimaryDark"-->
+    <!--android:layout_width="match_parent"-->
+    <!--android:layout_height="match_parent">-->
 
-        <LinearLayout
-            android:background="@color/colorPrimaryDark"
-            android:layout_width="match_parent"
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:background="@color/colorPrimaryDark"
+        android:orientation="horizontal">
+
+        <FrameLayout
+            android:layout_width="0dp"
             android:layout_height="match_parent"
-            android:orientation="horizontal">
+            android:layout_marginEnd="@dimen/activity_margin_4dp"
+            android:layout_marginStart="@dimen/activity_margin_4dp"
+            android:layout_marginTop="@dimen/activity_margin_16dp"
+            android:layout_weight="0.7">
 
             <ImageView
                 android:id="@+id/image_iv"
-                android:layout_width="0dp"
-                android:layout_weight="0.7"
+                android:layout_width="match_parent"
                 android:layout_height="match_parent"
-                android:layout_marginTop="16dp"
-                android:layout_marginEnd="4dp"
-                android:layout_marginStart="4dp"
                 android:adjustViewBounds="true"
                 android:background="#777777"
                 android:contentDescription="@string/sandwich_picture_content_description"
                 android:scaleType="centerCrop" />
 
-            <android.support.v4.widget.NestedScrollView
-                android:layout_width="0dp"
-                android:layout_weight="1"
-                android:layout_height="wrap_content">
+            <ProgressBar
+                android:id="@+id/image_loading_progress_bar"
+                android:layout_width="@dimen/image_loading_progress_bar"
+                android:layout_height="@dimen/image_loading_progress_bar"
+                android:layout_gravity="center"
+                android:visibility="gone" />
+        </FrameLayout>
+
+        <android.support.v4.widget.NestedScrollView
+            android:layout_width="0dp"
+            android:layout_height="wrap_content"
+            android:layout_weight="1">
+
             <android.support.constraint.ConstraintLayout
                 android:layout_width="match_parent"
                 android:layout_height="match_parent"
+                android:layout_marginBottom="@dimen/activity_margin_16dp"
+                android:layout_marginEnd="@dimen/activity_margin_16dp"
+                android:layout_marginLeft="@dimen/activity_margin_2dp"
+                android:layout_marginRight="@dimen/activity_margin_16dp"
+                android:layout_marginStart="@dimen/activity_margin_2dp"
+                android:layout_marginTop="@dimen/activity_margin_16dp"
                 android:background="@drawable/details_background"
-                android:layout_marginTop="16dp"
-                android:layout_marginBottom="16dp"
-                android:layout_marginEnd="16dp"
-                android:layout_marginLeft="2dp"
-                android:layout_marginStart="2dp"
-                android:layout_marginRight="16dp"
-                android:paddingBottom="32dp"
+                android:paddingBottom="@dimen/activity_bottom_padding"
                 tools:context="com.udacity.sandwichclub.DetailActivity">
 
                 <TextView
                     android:id="@+id/origin_tv"
-                    android:layout_width="0dp"
-                    android:layout_height="wrap_content"
-                    android:layout_marginLeft="8dp"
-                    android:layout_marginStart="8dp"
-                    android:layout_marginTop="16dp"
+                    style="@style/DetailActivityDataStyle"
                     app:layout_constraintEnd_toEndOf="@+id/description_tv"
                     app:layout_constraintStart_toStartOf="@+id/guideline"
                     app:layout_constraintTop_toBottomOf="@+id/description_tv" />
 
                 <TextView
                     android:id="@+id/also_known_as_label"
-                    android:layout_width="0dp"
-                    android:layout_height="wrap_content"
-                    android:layout_marginEnd="8dp"
-                    android:layout_marginLeft="16dp"
-                    android:layout_marginRight="8dp"
-                    android:layout_marginStart="16dp"
+                    style="@style/DetailActivityLabelStyle"
                     android:text="@string/detail_also_known_as_label"
-                    android:textStyle="bold"
                     app:layout_constraintEnd_toStartOf="@+id/guideline"
                     app:layout_constraintStart_toStartOf="parent"
                     app:layout_constraintTop_toTopOf="@+id/also_known_tv" />
 
                 <TextView
                     android:id="@+id/ingredients_label"
-                    android:layout_width="0dp"
-                    android:layout_height="wrap_content"
-                    android:layout_marginEnd="8dp"
-                    android:layout_marginRight="8dp"
+                    style="@style/DetailActivityLabelConstrainedToTopLabelStyle"
                     android:text="@string/detail_ingredients_label"
-                    android:textStyle="bold"
                     app:layout_constraintEnd_toStartOf="@+id/guideline"
                     app:layout_constraintStart_toStartOf="@+id/place_of_origin_label"
                     app:layout_constraintTop_toTopOf="@+id/ingredients_tv" />
 
                 <TextView
                     android:id="@+id/place_of_origin_label"
-                    android:layout_width="0dp"
-                    android:layout_height="wrap_content"
-                    android:layout_marginEnd="8dp"
-                    android:layout_marginRight="8dp"
+                    style="@style/DetailActivityLabelConstrainedToTopLabelStyle"
                     android:text="@string/detail_place_of_origin_label"
-                    android:textStyle="bold"
                     app:layout_constraintEnd_toStartOf="@+id/guideline"
                     app:layout_constraintStart_toStartOf="@+id/description_label"
                     app:layout_constraintTop_toTopOf="@+id/origin_tv" />
 
                 <TextView
                     android:id="@+id/description_tv"
-                    android:layout_width="0dp"
-                    android:layout_height="wrap_content"
-                    android:layout_marginEnd="8dp"
-                    android:layout_marginLeft="8dp"
-                    android:layout_marginRight="8dp"
-                    android:layout_marginStart="8dp"
-                    android:layout_marginTop="16dp"
+                    style="@style/DetailActivityDataConstrainedToTopDataStyle"
                     app:layout_constraintEnd_toEndOf="parent"
                     app:layout_constraintStart_toStartOf="@+id/guideline"
                     app:layout_constraintTop_toBottomOf="@+id/also_known_tv" />
 
                 <TextView
                     android:id="@+id/ingredients_tv"
-                    android:layout_width="0dp"
-                    android:layout_height="wrap_content"
-                    android:layout_marginEnd="8dp"
-                    android:layout_marginLeft="8dp"
-                    android:layout_marginRight="8dp"
-                    android:layout_marginStart="8dp"
-                    android:layout_marginTop="16dp"
+                    style="@style/DetailActivityDataConstrainedToTopDataStyle"
                     app:layout_constraintEnd_toEndOf="parent"
                     app:layout_constraintStart_toStartOf="@+id/guideline"
                     app:layout_constraintTop_toBottomOf="@+id/origin_tv" />
 
                 <TextView
                     android:id="@+id/also_known_tv"
-                    android:layout_width="0dp"
-                    android:layout_height="wrap_content"
-                    android:layout_marginEnd="8dp"
-                    android:layout_marginLeft="8dp"
-                    android:layout_marginRight="8dp"
-                    android:layout_marginStart="8dp"
-                    android:layout_marginTop="16dp"
+                    style="@style/DetailActivityDataConstrainedToTopDataStyle"
                     app:layout_constraintEnd_toEndOf="parent"
                     app:layout_constraintStart_toStartOf="@+id/guideline"
                     app:layout_constraintTop_toTopOf="parent" />
 
                 <TextView
                     android:id="@+id/description_label"
-                    android:layout_width="0dp"
-                    android:layout_height="wrap_content"
-                    android:layout_marginEnd="8dp"
-                    android:layout_marginRight="8dp"
+                    style="@style/DetailActivityLabelConstrainedToTopLabelStyle"
                     android:text="@string/detail_description_label"
-                    android:textStyle="bold"
                     app:layout_constraintEnd_toStartOf="@+id/guideline"
                     app:layout_constraintStart_toStartOf="@+id/also_known_as_label"
                     app:layout_constraintTop_toTopOf="@+id/description_tv" />
@@ -153,18 +126,18 @@
 
                 <View
                     android:id="@+id/view"
-                    android:layout_width="2dp"
+                    android:layout_width="@dimen/activity_margin_2dp"
                     android:layout_height="0dp"
-                    android:layout_marginEnd="8dp"
+                    android:layout_marginEnd="@dimen/activity_margin_8dp"
                     android:background="#777777"
                     app:layout_constraintBottom_toBottomOf="parent"
                     app:layout_constraintEnd_toStartOf="@+id/guideline"
                     app:layout_constraintStart_toStartOf="@+id/guideline"
                     app:layout_constraintTop_toTopOf="@+id/also_known_tv" />
             </android.support.constraint.ConstraintLayout>
-            </android.support.v4.widget.NestedScrollView>
+        </android.support.v4.widget.NestedScrollView>
 
-        </LinearLayout>
+    </LinearLayout>
 
     <!--</android.support.v4.widget.NestedScrollView>-->
 </layout>
